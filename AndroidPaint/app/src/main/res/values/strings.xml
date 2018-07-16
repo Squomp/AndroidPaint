@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">AndroidPaint</string>
+    <string name="clear_button">Clear Canvas</string>
+</resources>

@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -24,8 +25,6 @@ public class DrawingView extends View {
     private Bitmap canvasBitmap;
     private float brushSize, lastBrushSize;
     private boolean erase = false;
-    private ArrayList<Path> paths = new ArrayList<Path>();
-    private ArrayList<Path> undonePaths = new ArrayList<Path>();
 
     public DrawingView(Context context, AttributeSet attrs){
         super(context, attrs);
@@ -68,7 +67,6 @@ public class DrawingView extends View {
 
     public void startNew(){
         drawCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
-        undonePaths.clear();
         invalidate();
     }
 
@@ -81,7 +79,7 @@ public class DrawingView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
+        canvas.drawBitmap(canvasBitmap, 0, 0, drawPaint);
         canvas.drawPath(drawPath, drawPaint);
     }
 
@@ -104,7 +102,6 @@ public class DrawingView extends View {
             default:
                 return false;
         }
-        paths.add(drawPath);
         invalidate();
         return true;
     }
@@ -115,29 +112,7 @@ public class DrawingView extends View {
         drawPaint.setColor(paintColor);
     }
 
-    public void onClickUndo () {
-        if (paths.size()>0)
-        {
-            undonePaths.add(paths.remove(paths.size()-1));
-            invalidate();
-        }
-        else
-        {
 
-        }
-        //toast the user
-    }
 
-    public void onClickRedo (){
-        if (undonePaths.size()>0)
-        {
-            paths.add(undonePaths.remove(undonePaths.size()-1));
-            invalidate();
-        }
-        else
-        {
-
-        }
-        //toast the user
-    }
 }
+

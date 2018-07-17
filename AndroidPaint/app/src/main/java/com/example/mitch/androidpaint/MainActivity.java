@@ -15,7 +15,7 @@ import android.widget.Toast;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
-    private ImageButton currPaint, drawBtn, eraseBtn, newBtn, saveBtn;
+    private ImageButton currPaint, drawBtn, eraseBtn, newBtn, saveBtn, undoBtn, redoBtn;
     private DrawingView drawView;
     private float smallBrush, mediumBrush, largeBrush;
 

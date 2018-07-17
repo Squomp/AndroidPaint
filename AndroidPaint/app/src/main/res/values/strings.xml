@@ -5,7 +5,9 @@
     <string name="erase">Erase</string>
     <string name="save">Save</string>
     <string name="paint">Paint</string>
+    <string name="xs">ExtraSmall</string>
     <string name="sml">Small</string>
     <string name="med">Medium</string>
     <string name="lrg">Large</string>
+    <string name="xl">ExtraLarge</string>
 </resources>

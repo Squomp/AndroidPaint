@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="extrasmall_brush">5dp</dimen>
+    <integer name="extrasmall_size">5</integer>
     <dimen name="small_brush">10dp</dimen>
     <integer name="small_size">10</integer>
     <dimen name="medium_brush">20dp</dimen>
     <integer name="medium_size">20</integer>
     <dimen name="large_brush">30dp</dimen>
     <integer name="large_size">30</integer>
+    <dimen name="extralarge_brush">40dp</dimen>
+    <integer name="extralarge_size">40</integer>
 </resources>

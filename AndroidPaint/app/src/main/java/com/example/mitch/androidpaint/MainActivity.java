@@ -3,6 +3,7 @@ package com.example.mitch.androidpaint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         setContentView(R.layout.activity_main);
         drawView = (DrawingView) findViewById(R.id.drawing);
         LinearLayout paintLayout = (LinearLayout) findViewById(R.id.paint_colors);
-        currPaint = (ImageButton) paintLayout.getChildAt(0);
+        currPaint = (ImageButton) paintLayout.getChildAt(1);
         currPaint.setImageDrawable(getDrawable(R.drawable.paint_pressed));
         xsmallBrush = getResources().getInteger(R.integer.extrasmall_size);
         smallBrush = getResources().getInteger(R.integer.small_size);
@@ -54,6 +55,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             currPaint.setImageDrawable(getDrawable(R.drawable.paint));
             currPaint = (ImageButton) view;
         }
+    }
+
+    public void colorClicked(View view) {
+        ImageButton imgView = (ImageButton) view;
+        String color = view.getTag().toString();
+        DrawingView drawing = (DrawingView) findViewById(R.id.drawing);
+        drawing.setBackgroundColor(Color.parseColor(color));
     }
 
     @Override
@@ -124,6 +132,17 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             brushDialog.setTitle("Eraser size:");
             brushDialog.setContentView(R.layout.brush_chooser);
 
+            ImageButton xsmallBtn = (ImageButton) brushDialog.findViewById(R.id.extrasmall_brush);
+            xsmallBtn.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    drawView.setErase(true);
+                    drawView.setBrushSize(xsmallBrush);
+                    drawView.setLastBrushSize(xsmallBrush);
+                    brushDialog.dismiss();
+                }
+            });
+
             ImageButton smallBtn = (ImageButton) brushDialog.findViewById(R.id.small_brush);
             smallBtn.setOnClickListener(new OnClickListener() {
                 @Override
@@ -151,6 +170,18 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                     brushDialog.dismiss();
                 }
             });
+
+            ImageButton xlargeBtn = (ImageButton) brushDialog.findViewById(R.id.extralarge_brush);
+            xlargeBtn.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    drawView.setErase(true);
+                    drawView.setBrushSize(xlargeBrush);
+                    drawView.setLastBrushSize(xlargeBrush);
+                    brushDialog.dismiss();
+                }
+            });
+
             brushDialog.show();
         } else if (view.getId() == R.id.new_btn) {
             AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
@@ -170,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             newDialog.show();
         } else if (view.getId() == R.id.save_btn) {
             AlertDialog.Builder saveDialog = new AlertDialog.Builder(this);
-            saveDialog.setTitle("Save DDrawing");
+            saveDialog.setTitle("Save Drawing");
             saveDialog.setMessage("Save to Gallery?");
             saveDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {

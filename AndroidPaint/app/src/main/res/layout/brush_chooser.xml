@@ -6,6 +6,14 @@
     android:orientation="vertical" >
 
     <ImageButton
+        android:id="@+id/extrasmall_brush"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:contentDescription="@string/xs"
+        android:src="@drawable/extra_small" />
+
+    <ImageButton
         android:id="@+id/small_brush"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,4 +36,12 @@
         android:layout_weight="1"
         android:contentDescription="@string/lrg"
         android:src="@drawable/large" />
+
+    <ImageButton
+        android:id="@+id/extralarge_brush"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:contentDescription="@string/xl"
+        android:src="@drawable/extra_large" />
 </LinearLayout>

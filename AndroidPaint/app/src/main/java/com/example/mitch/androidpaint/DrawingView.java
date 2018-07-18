@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -24,7 +25,9 @@ public class DrawingView extends View {
     private Canvas drawCanvas;
     private Bitmap canvasBitmap;
     private float brushSize, lastBrushSize;
-    private boolean erase = false;
+    private boolean erase = false, rectangle = false, circle = false;
+    private Rect rect;
+    private int x, y, radius;
 
     public DrawingView(Context context, AttributeSet attrs){
         super(context, attrs);
@@ -43,6 +46,7 @@ public class DrawingView extends View {
         drawPaint.setStrokeJoin(Paint.Join.ROUND);
         drawPaint.setStrokeCap(Paint.Cap.ROUND);
         canvasPaint = new Paint(Paint.DITHER_FLAG);
+        rect = new Rect();
     }
 
     public void setErase(boolean isErase){
@@ -51,7 +55,21 @@ public class DrawingView extends View {
         else drawPaint.setXfermode(null);
     }
 
+    public void setRectangle(boolean isRectangle) {
+        rectangle = isRectangle;
+        circle = false;
+        erase = false;
+    }
+
+    public void setCircle(boolean isCircle) {
+        circle = isCircle;
+        rectangle = false;
+        erase = false;
+    }
+
     public void setBrushSize(float newSize){
+        rectangle = false;
+        circle = false;
         float pixelAmount = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 newSize, getResources().getDisplayMetrics());
         brushSize=pixelAmount;
@@ -80,7 +98,13 @@ public class DrawingView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawBitmap(canvasBitmap, 0, 0, drawPaint);
-        canvas.drawPath(drawPath, drawPaint);
+        if (rectangle) {
+            canvas.drawRect(rect, drawPaint);
+        } else if (circle) {
+            canvas.drawCircle(x, y, radius, drawPaint);
+        } else {
+            canvas.drawPath(drawPath, drawPaint);
+        }
     }
 
     @Override
@@ -90,14 +114,40 @@ public class DrawingView extends View {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                if (rectangle) {
+                rect.top = (int)touchY;
+                rect.right = (int)touchX;
+
+                } else if (circle) {
+                    y = (int)touchY;
+                    x = (int)touchX;
+                } else {
                 drawPath.moveTo(touchX, touchY);
+
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
+                if (rectangle) {
+                rect.left = (int)touchX;
+                rect.bottom = (int)touchY;
+                } else if (circle) {
+                    radius = (int)touchX - x;
+                } else {
                 drawPath.lineTo(touchX, touchY);
+
+                }
                 break;
             case MotionEvent.ACTION_UP:
+                if (rectangle) {
+                drawCanvas.drawRect(rect, drawPaint);
+                } else if (circle) {
+                    drawCanvas.drawCircle(x, y, radius, drawPaint);
+
+                } else {
                 drawCanvas.drawPath(drawPath, drawPaint);
                 drawPath.reset();
+
+                }
                 break;
             default:
                 return false;

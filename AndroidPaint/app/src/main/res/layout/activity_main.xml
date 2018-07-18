@@ -42,6 +42,20 @@
             android:contentDescription="@string/save"
             android:src="@drawable/save" />
 
+        <ImageButton
+            android:id="@+id/rectangle_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@android:drawable/ic_delete" />
+
+        <ImageButton
+            android:id="@+id/txt_btn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@android:drawable/sym_def_app_icon" />
+
     </LinearLayout>
 
     <com.example.mitch.androidpaint.DrawingView

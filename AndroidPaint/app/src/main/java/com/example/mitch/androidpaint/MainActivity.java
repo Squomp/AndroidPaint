@@ -7,8 +7,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -16,9 +18,10 @@ import android.widget.Toast;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
-    private ImageButton currPaint, drawBtn, eraseBtn, newBtn, saveBtn, undoBtn, redoBtn;
+    private ImageButton currPaint, drawBtn, eraseBtn, newBtn, saveBtn, rectangleBtn, txtBtn;
     private DrawingView drawView;
     private float smallBrush, mediumBrush, largeBrush, xlargeBrush, xsmallBrush;
+    private String text = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         newBtn.setOnClickListener(this);
         saveBtn = (ImageButton) findViewById(R.id.save_btn);
         saveBtn.setOnClickListener(this);
+        rectangleBtn = findViewById(R.id.rectangle_btn);
+        rectangleBtn.setOnClickListener(this);
+        txtBtn = findViewById(R.id.txt_btn);
+        txtBtn.setOnClickListener(this);
+
     }
 
     public void paintClicked(View view) {
@@ -227,6 +235,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 }
             });
             saveDialog.show();
+        } else if (view.getId() == R.id.rectangle_btn) {
+            drawView.setRectangle(true);
+        } else if (view.getId() == R.id.txt_btn) {
+            drawView.setCircle(true);
         }
     }
 }

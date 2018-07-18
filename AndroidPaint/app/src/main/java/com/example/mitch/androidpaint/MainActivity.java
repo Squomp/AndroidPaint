@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.draw_btn) {
+            drawView.setRectangle(false);
+            drawView.setCircle(false);
             final Dialog brushDialog = new Dialog(this);
             brushDialog.setTitle("Brush size:");
             brushDialog.setContentView(R.layout.brush_chooser);
@@ -136,6 +138,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
             brushDialog.show();
         } else if (view.getId() == R.id.erase_btn) {
+            drawView.setRectangle(false);
+            drawView.setCircle(false);
             final Dialog brushDialog = new Dialog(this);
             brushDialog.setTitle("Eraser size:");
             brushDialog.setContentView(R.layout.brush_chooser);
@@ -192,6 +196,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
             brushDialog.show();
         } else if (view.getId() == R.id.new_btn) {
+            drawView.setRectangle(false);
+            drawView.setCircle(false);
             AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
             newDialog.setTitle("New drawing");
             newDialog.setMessage("Are you sure you want to start a new drawing?");
@@ -208,6 +214,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             });
             newDialog.show();
         } else if (view.getId() == R.id.save_btn) {
+            drawView.setRectangle(false);
+            drawView.setCircle(false);
             AlertDialog.Builder saveDialog = new AlertDialog.Builder(this);
             saveDialog.setTitle("Save Drawing");
             saveDialog.setMessage("Save to Gallery?");
